@@ -1,4 +1,4 @@
-package main;
+package main.postFix;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;

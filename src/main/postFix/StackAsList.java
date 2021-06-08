@@ -1,4 +1,4 @@
-package main;
+package main.postFix;
 
 /**
  * Class of StackAsLists that implements the Interface Stack as a LinkedList.

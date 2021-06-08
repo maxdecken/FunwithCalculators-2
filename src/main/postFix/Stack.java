@@ -1,4 +1,4 @@
-package main;
+package main.postFix;
 
 /**
  * This Interface is a simple implementation of Stack
