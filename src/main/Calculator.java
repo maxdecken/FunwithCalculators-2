@@ -1,5 +1,7 @@
 package main;
 
+import main.ReversePolishNotation.CalcEngineStr;
+import main.ReversePolishNotation.UserInterfaceRPN;
 import main.hex.CalcEngineHex;
 import main.hex.UserInterfaceHex;
 
@@ -10,8 +12,8 @@ public class Calculator {
         /**
          * Create a new Calculator and combine the engine with the interface.
          */
-        CalcEngineHex calcEngine = new CalcEngineHex();
-        UserInterfaceHex userInterface = new UserInterfaceHex(calcEngine);
+        CalcEngineStr calcEngine = new CalcEngineStr();
+        UserInterfaceRPN userInterface = new UserInterfaceRPN(calcEngine);
         userInterface.setVisible(true);
 
     }
