@@ -11,8 +11,10 @@ public class CalcEngineStr extends CalcEngine {
 		super();
 	}
 	
-	public void evaluateIntFix(String inFix) {
+	public String evaluateIntFix(String inFix) {
+		inFix = splitString(inFix);
 		String result = evaluatePostFix(infixToPostfix(inFix));
+		return result;
 	}
 	
 	/**
@@ -140,4 +142,34 @@ public class CalcEngineStr extends CalcEngine {
 
         return false;
     }
-}
+    
+    private String splitString(String line) {
+    	String[] str = line.split("");
+        String s = "";
+        String p = "";
+        for (int i = 0; i < str.length; i++){
+            if(Pattern.compile("[1-9a-fA-F]").matcher(str[i]).matches() && Pattern.compile("[1-9a-fA-F]").matcher(p).matches()){
+            	int number;
+            	if(Pattern.compile("[a-fA-F]").matcher(str[i]).matches()){
+                     number = Integer.parseInt(str[i], 16);
+            	 }else {
+            		 number = Integer.parseInt(str[i]);
+            	 }
+            	if(mode == 16) {
+            		number = number * 16 + Integer.parseInt(p);
+            		s = s + number + "";
+            	}else {
+            		s = s + str[i];
+            	}
+            }else {
+                s = s + " " + str[i];
+            }
+            p = str[i];
+        }
+        return s;
+    }
+    
+    public int getMode() {
+    	return mode;
+    }
+    }
