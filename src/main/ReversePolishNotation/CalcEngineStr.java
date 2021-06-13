@@ -147,7 +147,7 @@ public class CalcEngineStr extends CalcEngine {
     	String[] str = line.split("");
         String s = "";
         String p = "";
-        for (int i = 0; i < str.length; i++){
+        /*for (int i = 0; i < str.length; i++){
             if(Pattern.compile("[1-9a-fA-F]").matcher(str[i]).matches() && Pattern.compile("[1-9a-fA-F]").matcher(p).matches()){
             	int number;
             	if(Pattern.compile("[a-fA-F]").matcher(str[i]).matches()){
@@ -165,6 +165,23 @@ public class CalcEngineStr extends CalcEngine {
                 s = s + " " + str[i];
             }
             p = str[i];
+        }*/
+        int number = 0;
+        for (int i = 0; i < str.length; i++) {
+        	 if(Pattern.compile("[1-9a-fA-F]").matcher(str[i]).matches() && Pattern.compile("[1-9a-fA-F]").matcher(p).matches()) {
+        		 if(mode == 16) {
+        			 number = Integer.parseInt(str[i], 16) * 16 + number;
+        		 }else {
+        			 s = s + str[i];
+        		 }
+        	 }else {
+        		 if(mode == 16) {
+        			 number = Integer.parseInt(str[i], 16) * 16 + number;
+        		 }else {
+        			 s = s + " " + str[i];
+        		 }
+             }
+             p = str[i];
         }
         return s;
     }
@@ -172,4 +189,4 @@ public class CalcEngineStr extends CalcEngine {
     public int getMode() {
     	return mode;
     }
-    }
+}
