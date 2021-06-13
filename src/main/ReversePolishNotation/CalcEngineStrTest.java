@@ -56,37 +56,37 @@ class CalcEngineStrTest {
 	
 	@Test
 	void test9() {
-		assertEquals("8", s.evaluateIntFix("3^2-1"));
+		assertEquals("7", s.evaluateIntFix("3*2+1"));
 	}
 	
 	@Test
 	void test10() {
-		assertEquals("1", s.evaluateIntFix("10-3^2"));
+		assertEquals("10", s.evaluateIntFix("2+4*2"));
 	}
 	
 	@Test
 	void test11() {
-		assertEquals("16", s.evaluateIntFix("2^5/2"));
+		assertEquals("8", s.evaluateIntFix("2*6/2+2"));
 	}
 	
 	@Test
 	void test12() {
-		assertEquals("0", s.evaluateIntFix("2^0-1"));
+		assertEquals("-2", s.evaluateIntFix("(2-3)*2"));
 	}
 	
 	@Test
 	void test13() {
-		assertEquals("2", s.evaluateIntFix("2^(2-1)"));
+		assertEquals("2", s.evaluateIntFix("2*(2-1)"));
 	}
 	
 	@Test
 	void test14() {
-		assertEquals("64", s.evaluateIntFix("(2+2)^3"));
+		assertEquals("-1", s.evaluateIntFix("(2+2)-5"));
 	}
 	
 	@Test
 	void test15() {
-		assertEquals("2", s.evaluateIntFix("(2+2)^3*4/128"));
+		assertEquals("8", s.evaluateIntFix("2*2+2*2"));
 	}
 
 }
