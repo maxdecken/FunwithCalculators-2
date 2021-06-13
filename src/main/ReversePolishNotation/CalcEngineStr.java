@@ -172,4 +172,4 @@ public class CalcEngineStr extends CalcEngine {
     public int getMode() {
     	return mode;
     }
-    }
+   	}
