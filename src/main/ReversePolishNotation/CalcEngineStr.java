@@ -1,5 +1,6 @@
 package main.ReversePolishNotation;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import main.decimal.CalcEngine;
@@ -11,8 +12,17 @@ public class CalcEngineStr extends CalcEngine {
 		super();
 	}
 	
+	/**
+	 * Method that is used by the UserIterfaceRPN
+	 * @param inFix the String you want to calculate
+	 * @return the result
+	 */
 	public String evaluateIntFix(String inFix) {
-		inFix = splitString(inFix);
+		if(mode == 16) {
+			inFix = splitStringHex(inFix);
+		}else {
+			inFix = splitStringDec(inFix);
+		}
 		String result = evaluatePostFix(infixToPostfix(inFix));
 		return result;
 	}
@@ -143,49 +153,64 @@ public class CalcEngineStr extends CalcEngine {
         return false;
     }
     
-    private String splitString(String line) {
+    /**
+     * Spilt the String, for DEC input
+     * @param line the line you want to split
+     * @return a string with blanks
+     */
+    private String splitStringDec(String line) {
     	String[] str = line.split("");
         String s = "";
         String p = "";
-        /*for (int i = 0; i < str.length; i++){
-            if(Pattern.compile("[1-9a-fA-F]").matcher(str[i]).matches() && Pattern.compile("[1-9a-fA-F]").matcher(p).matches()){
-            	int number;
-            	if(Pattern.compile("[a-fA-F]").matcher(str[i]).matches()){
-                     number = Integer.parseInt(str[i], 16);
-            	 }else {
-            		 number = Integer.parseInt(str[i]);
-            	 }
-            	if(mode == 16) {
-            		number = number * 16 + Integer.parseInt(p);
-            		s = s + number + "";
-            	}else {
-            		s = s + str[i];
-            	}
-            }else {
-                s = s + " " + str[i];
-            }
-            p = str[i];
-        }*/
-        int number = 0;
         for (int i = 0; i < str.length; i++) {
-        	 if(Pattern.compile("[1-9a-fA-F]").matcher(str[i]).matches() && Pattern.compile("[1-9a-fA-F]").matcher(p).matches()) {
-        		 if(mode == 16) {
-        			 number = Integer.parseInt(str[i], 16) * 16 + number;
-        		 }else {
-        			 s = s + str[i];
-        		 }
+        	 if(Pattern.compile("[0-9]").matcher(str[i]).matches() && Pattern.compile("[0-9]").matcher(p).matches()) {
+        		s = s + str[i];
         	 }else {
-        		 if(mode == 16) {
-        			 number = Integer.parseInt(str[i], 16) * 16 + number;
-        		 }else {
-        			 s = s + " " + str[i];
-        		 }
+        		 s = s + " " + str[i];
              }
              p = str[i];
         }
         return s;
     }
     
+    /**
+     * Spilt the String, for HEX input
+     * @param line the line you want to split
+     * @return a string with blanks
+     */
+    private String splitStringHex(String line) {
+    	String[] str = line.split("");
+        ArrayList<String> result = new ArrayList();
+        int i = 0;
+        while(i < str.length) {
+	        if(Pattern.compile("[0-9a-fA-F]").matcher(str[i]).matches())
+	        {
+	        	int number = Integer.parseInt(str[i], 16);
+	        	i++;
+	        	if(i < str.length) {
+		        	while(Pattern.compile("[1-9a-fA-F]").matcher(str[i]).matches() && i < str.length) {
+		        		number = Integer.parseInt(str[i], 16)  * 16 + number;
+		        		i++;
+		        	}
+	        	}
+	        	result.add(number + "");
+	        }else {
+	        	result.add(str[i]);
+	        	i++;
+	        }
+        }
+        
+        String s = "";
+        for(String elm : result) {
+        	s = s + " " + elm;
+        }
+        return s;
+    }
+    
+    /**
+     * Returns the current mode, HEX or DEC
+     * @return the current mode (10/16)
+     */
     public int getMode() {
     	return mode;
     }

@@ -87,8 +87,9 @@ public class UserInterfaceRPN extends UserInterface {
     		result.setText("" + text);
     		display.setText("" + text);
     	}else {
-    		int textValue = Integer.parseInt(text);
-    		String textNew = Integer.toHexString(textValue);
+    		if(text != "") {
+    		text = Integer.toHexString(Integer.parseInt(text));
+    		}
     		result.setText("" + text);
     		display.setText("" + text);
     	}
